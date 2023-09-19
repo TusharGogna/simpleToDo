@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_todo_task">Add ToDo task</string>
+    <string name="you_are_all_set_add_new_items_to_start_tracking">You are all set! Add new items to start tracking.</string>
+    <string name="enter_title_for_your_task">Enter title for your task</string>
+    <string name="enter_description_for_your_task">Enter description for your task</string>
+    <string name="update">Update</string>
+    <string name="cancel">Cancel</string>
+</resources>
