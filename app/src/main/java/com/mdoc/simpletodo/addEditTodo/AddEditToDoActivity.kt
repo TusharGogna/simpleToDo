@@ -2,14 +2,12 @@ package com.mdoc.simpletodo.addEditTodo
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.color.DynamicColors
-import com.google.android.material.snackbar.Snackbar
 import com.mdoc.simpletodo.R
 import com.mdoc.simpletodo.TodoEvent
 import com.mdoc.simpletodo.data.TodoEntity
@@ -17,7 +15,6 @@ import com.mdoc.simpletodo.data.TodoRepository
 import com.mdoc.simpletodo.todolist.TodoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -66,7 +63,7 @@ class AddEditToDoActivity : AppCompatActivity() {
             val todoItem: String = intent.getStringExtra("event").toString()
             if (todoItem.contains("todoID")) {
                 item = repository.getTodoById(todoItem.substringAfterLast("=").toInt())!!
-                enableFields(true)
+                enableFields(false)
                 edtTitle.setText(item.title)
                 edtDescription.setText(item.description)
                 btnUpdate.text = "Update"
