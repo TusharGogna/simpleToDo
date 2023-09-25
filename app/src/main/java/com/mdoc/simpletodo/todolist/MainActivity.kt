@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.Visibility
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -17,14 +16,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.mdoc.simpletodo.R
 import com.mdoc.simpletodo.TodoEvent
 import com.mdoc.simpletodo.addEditTodo.AddEditToDoActivity
-import com.mdoc.simpletodo.data.TodoEntity
 import com.mdoc.simpletodo.todolist.adapter.TodoListAdapter
 import com.mdoc.simpletodo.utils.UiEvent
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
