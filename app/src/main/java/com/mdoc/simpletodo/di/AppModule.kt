@@ -2,7 +2,6 @@ package com.mdoc.simpletodo.di
 
 import android.app.Application
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.mdoc.simpletodo.data.TodoDatabase
 import com.mdoc.simpletodo.data.TodoRepository
 import com.mdoc.simpletodo.data.TodoRepositoryImpl
