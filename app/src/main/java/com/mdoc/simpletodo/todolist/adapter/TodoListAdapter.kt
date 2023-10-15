@@ -2,6 +2,7 @@ package com.mdoc.simpletodo.todolist.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.Paint
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,18 +46,48 @@ class TodoListAdapter(
             holder.txtDescription.setCheckMarkDrawable(
                 android.R.drawable.checkbox_off_background
             )
+            holder.txtDescription.apply {
+                paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                text = itemsViewModel.description
+            }
+            holder.txtTitle.apply {
+                paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                text = itemsViewModel.title
+            }
         } else {
             holder.txtDescription.setCheckMarkDrawable(
                 android.R.drawable.checkbox_on_background
             )
+            holder.txtDescription.apply {
+                paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                text = itemsViewModel.description
+                setTextColor(R.color.md_theme_light_error)
+            }
+            holder.txtTitle.apply {
+                paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                text = itemsViewModel.title
+                setTextColor(R.color.md_theme_light_error)
+            }
         }
-
+        var isBusy = false
+        var counterClicks = 0
+        val handler = Handler()
+        val interval = 200L
         holder.cardView.setOnClickListener {
-            viewModel.onEvent(TodoEvent.OnTodoClick(list[position]))
-        }
-
-        holder.txtTitle.setOnClickListener {
-            viewModel.onEvent(TodoEvent.DeleteTodo(list[position]))
+            if (!isBusy) {
+                isBusy = true
+                counterClicks++
+                handler.postDelayed({
+                    if (counterClicks >= 2) {
+                        viewModel.onEvent(TodoEvent.DeleteTodo(list[position]))
+                    }
+                    if (counterClicks == 1) {
+                        viewModel.onEvent(TodoEvent.OnTodoClick(list[position]))
+                    }
+                    counterClicks = 0
+                }, interval)
+                isBusy = false
+            }
         }
 
         holder.txtDescription.setOnClickListener {
@@ -76,18 +107,6 @@ class TodoListAdapter(
                     holder.txtDescription.isChecked
                 )
             )
-
-            if (holder.txtDescription.isChecked) {
-                holder.txtDescription.paintFlags =
-                    holder.txtDescription.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                holder.txtTitle.paintFlags =
-                    holder.txtTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            } else {
-                holder.txtDescription.paintFlags =
-                    holder.txtDescription.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-                holder.txtTitle.paintFlags =
-                    holder.txtTitle.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-            }
         }
     }
 
