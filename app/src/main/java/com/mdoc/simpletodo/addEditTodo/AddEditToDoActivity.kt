@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.color.DynamicColors
@@ -66,9 +67,10 @@ class AddEditToDoActivity : AppCompatActivity() {
                 enableFields(false)
                 edtTitle.setText(item.title)
                 edtDescription.setText(item.description)
-                btnUpdate.text = "Update"
+                btnUpdate.isVisible = false
             } else {
                 btnUpdate.text = "Save"
+                btnUpdate.isVisible = true
                 enableFields(true)
             }
         }
